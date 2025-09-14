@@ -1,9 +1,0 @@
-﻿Decision,Reason
-✅ "One thread, no threads",Wayland is single-threaded by design. Avoiding threads prevents race conditions.
-✅ No `wl_display_read_events()`,It’s unsafe and can hang. We use wl_display_dispatch() instead — it handles fragmentation and buffering safely.
-✅ Manual timer with `poll()`,Works everywhere — even on old systems without wl_display_dispatch_timeout().
-✅ Shared Memory (SHM),"Fast, zero-copy pixel transfer. No GPU needed. Works on all Wayland compositors."
-✅ Two independent window objects,"Enables true multi-monitor control. Each window owns its own surface, buffer, and output binding."
-✅ Wait for `configure` before rendering,Required by spec. Compositor must agree on size before accepting buffers.
-✅ Use `wl_surface.frame` callback,"Ensures smooth presentation — avoids tearing, syncs to refresh rate."
-✅ Color changes only after commit,Prevents flicker — new buffer is fully ready before being displayed.
